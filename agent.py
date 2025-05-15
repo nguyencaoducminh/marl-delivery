@@ -193,7 +193,8 @@ class Agents:
             return new_actions
 
         for conflict in conflicts:
-            print(conflict)
+            if len(conflict) > 2:
+                print(conflict)
             robot1, robot2 = conflict
 
             movement_offsets = {
@@ -253,25 +254,32 @@ class Agents:
                     piority = robot2
                     other = robot1
                 
-                if actions[piority][0] == 'U':
-                    posible_actions = ['L', 'R', 'U']
-                elif actions[piority][0] == 'D':
-                    posible_actions = ['L', 'R', 'D']
-                elif actions[piority][0] == 'L':
-                    posible_actions = ['U', 'D', 'L']
-                elif actions[piority][0] == 'R':
-                    posible_actions = ['U', 'D', 'R']
+                if (actions[piority][0] == 'U' and actions[other][0] == 'D') or \
+                    (actions[piority][0] == 'D' and actions[other][0] == 'U') or \
+                    (actions[piority][0] == 'L' and actions[other][0] == 'R') or \
+                    (actions[piority][0] == 'R' and actions[other][0] == 'L'):
+                
+                    if actions[piority][0] == 'U':
+                        posible_actions = ['L', 'R', 'U']
+                    elif actions[piority][0] == 'D':
+                        posible_actions = ['L', 'R', 'D']
+                    elif actions[piority][0] == 'L':
+                        posible_actions = ['U', 'D', 'L']
+                    elif actions[piority][0] == 'R':
+                        posible_actions = ['U', 'D', 'R']
 
-                current_x, current_y = self.robots[other][0], self.robots[other][1]
+                    current_x, current_y = self.robots[other][0], self.robots[other][1]
 
-                for action in posible_actions:
-                    if action in movement_offsets:
-                        dx, dy = movement_offsets[action]
-                        new_location = (current_x + dx, current_y + dy)
+                    for action in posible_actions:
+                        if action in movement_offsets:
+                            dx, dy = movement_offsets[action]
+                            new_location = (current_x + dx, current_y + dy)
 
-                        if new_location not in new_pos and self.map[new_location[0]][new_location[1]] == 0:
-                            new_actions[robot1] = (action, '0')
-                            break
+                            if new_location not in new_pos and self.map[new_location[0]][new_location[1]] == 0:
+                                new_actions[robot1] = (action, '0')
+                                break
+                else:
+                    new_actions[other] = ('S', '0')
                         
         return new_actions
 
