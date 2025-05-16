@@ -1,7 +1,7 @@
 from env import Environment
 # from modifygreedyagent import Agents
 # from astarhungarianagent import AStarHungarianAgents as Agents
-from mcmfagent import Agents
+from mcmfagent import MCMFAgents as Agents
 # from greedyagent import GreedyAgents as Agents
 
 import numpy as np
