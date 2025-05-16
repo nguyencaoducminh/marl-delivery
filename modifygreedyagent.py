@@ -194,7 +194,7 @@ class Agents:
 
         for conflict in conflicts:
             if len(conflict) > 2:
-                print(conflict)
+                continue
             robot1, robot2 = conflict
 
             movement_offsets = {
@@ -356,7 +356,7 @@ class Agents:
                 else:
                     actions.append(('S', '0'))
 
-        actions = self.resolve_collision(actions)
+        # actions = self.resolve_collision(actions)
 
         print("N robots = ", len(self.robots))
         print("Actions = ", actions)
